@@ -75,7 +75,7 @@ function Header() {
                 onClick={signOut}
                 src={session.user.image}
                 alt="profile_pic"
-                className={"h-10 rounded-full cursor-pointer object-cover"}
+                className={"h-10 w-10 rounded-full cursor-pointer object-cover"}
               />
             </>
           ) : (

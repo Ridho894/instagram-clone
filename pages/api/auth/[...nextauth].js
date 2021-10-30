@@ -13,9 +13,20 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
-  theme: {
-    logo: "https://links.papareact.com/sq0",
-    brandColor: "#F13287",
-    colorScheme: "auto",
+  callbacks: {
+    async session({ session, token, user }) {
+      session.user.username = session.user.name
+        .split(" ")
+        .join("")
+        .toLocaleLowerCase();
+
+      session.user.uid = session.sub;
+      return session;
+    },
   },
+  // theme: {
+  //   logo: "https://links.papareact.com/sq0",
+  //   brandColor: "#F13287",
+  //   colorScheme: "auto",
+  // },
 });
