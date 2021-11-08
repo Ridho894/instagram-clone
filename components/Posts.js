@@ -6,7 +6,7 @@ const DUMMY_DATA = [
     username: "Vinct",
     userImg:
       "https://img.freepik.com/free-photo/surprised-happy-bearded-man-shirt-pointing-away_171337-5021.jpg?size=338&ext=jpg",
-    img: "https://avatars.githubusercontent.com/u/24712956?v=4",
+    img: "https://img.freepik.com/free-photo/surprised-happy-bearded-man-shirt-pointing-away_171337-5021.jpg?size=338&ext=jpg",
     caption: "This is test",
   },
   {
