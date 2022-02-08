@@ -13,7 +13,7 @@ function Feed() {
         !session && "!grid-cols-1 !max-w-max"
       }`}
     >
-      <section className={"col-span-2"}>
+      <section className={`col-span-2 ${!session && 'w-screen sm:max-w-3xl lg:max-w-6xl'}`}>
         <Stories />
         <Posts />
       </section>

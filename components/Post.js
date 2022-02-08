@@ -10,7 +10,7 @@ import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 
 function Post({ id, username, userImg, img, caption }) {
   return (
-    <div className={"bg-white my-7 border rounded-sm"}>
+    <div className={"bg-white my-7 border w-full rounded-sm"}>
       {/* Header */}
       <div className={"flex items-center p-5"}>
         <img
