@@ -1,35 +1,30 @@
+import { useEffect, useState } from "react";
 import Post from "./Post";
-
-const DUMMY_DATA = [
-  {
-    id: "123",
-    username: "Vinct",
-    userImg:
-      "https://img.freepik.com/free-photo/surprised-happy-bearded-man-shirt-pointing-away_171337-5021.jpg?size=338&ext=jpg",
-    img: "https://img.freepik.com/free-photo/surprised-happy-bearded-man-shirt-pointing-away_171337-5021.jpg?size=338&ext=jpg",
-    caption: "This is test",
-  },
-  {
-    id: "123",
-    username: "Deck",
-    userImg:
-      "https://img.freepik.com/free-photo/surprised-happy-bearded-man-shirt-pointing-away_171337-5021.jpg?size=338&ext=jpg",
-    img: "https://img.freepik.com/free-photo/surprised-happy-bearded-man-shirt-pointing-away_171337-5021.jpg?size=338&ext=jpg",
-    caption: "This is test",
-  },
-];
+import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
+import { db } from "../firebase";
 
 function Posts() {
+  const [posts, setPosts] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "posts"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setPosts(snapshot.docs);
+        }
+      ),
+    [db]
+  );
   return (
     <div>
-      {DUMMY_DATA.map((post) => (
+      {posts.map((post) => (
         <Post
           key={post.id}
           id={post.id}
-          username={post.username}
-          userImg={post.userImg}
-          img={post.img}
-          caption={post.caption}
+          username={post.data().username}
+          userImg={post.data().profileImg}
+          img={post.data().image}
+          caption={post.data().caption}
         />
       ))}
     </div>
