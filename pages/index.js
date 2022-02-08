@@ -7,8 +7,10 @@ export default function Home() {
   return (
     <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
         <title>Instagram 1.0 Build</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/Instagram-Logo.ico" />
       </Head>
 
       <Header />

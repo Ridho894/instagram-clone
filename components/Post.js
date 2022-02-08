@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BookmarkIcon,
   ChatIcon,
@@ -8,9 +9,46 @@ import {
 } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "@firebase/firestore";
+import { db } from "../firebase";
+import Moment from "react-moment";
 
 function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "posts", id, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db]
+  );
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+    const commentToSend = comment;
+    setComment("");
+
+    await addDoc(collection(db, "posts", id, "comments"), {
+      comment: commentToSend,
+      username: session.user.username,
+      userImage: session.user.image,
+      timestamp: serverTimestamp(),
+    });
+  };
   return (
     <div className={"bg-white my-7 border w-full rounded-sm"}>
       {/* Header */}
@@ -42,16 +80,50 @@ function Post({ id, username, userImg, img, caption }) {
         {caption}
       </p>
       {/* Comments */}
+      {comments.length > 0 && (
+        <div
+          className={
+            "ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin"
+          }
+        >
+          {comments.map((comment) => (
+            <div
+              key={comment.id}
+              className={"flex items-center space-x-2 mb-3"}
+            >
+              <img
+                src={comment.data().userImage}
+                alt=".img"
+                className={"h-7 rounded-full"}
+              />
+              <p className={"text-sm flex-1"}>
+                <span className={"font-bold"}>{comment.data().username}</span>{" "}
+                {comment.data().comment}
+              </p>
+              <Moment className={"pr-4 text-xs"} fromNow>{comment.data().timestamp?.toDate()}</Moment>
+            </div>
+          ))}
+        </div>
+      )}
       {/* Input Box */}
       {session && (
         <form className={"flex items-center p-4"}>
           <EmojiHappyIcon className={"h-7"} />
           <input
             type="text"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             className={"border-none flex-1 focus:ring-0 outline-none"}
             placeholder="Add a comment..."
           />
-          <button className={"font-semibold text-blue-400"}>POST</button>
+          <button
+            disabled={!comment.trim()}
+            onClick={sendComment}
+            type="submit"
+            className={"font-semibold text-blue-400"}
+          >
+            POST
+          </button>
         </form>
       )}
     </div>
