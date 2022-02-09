@@ -54,6 +54,8 @@ function Header() {
               <SearchIcon className={"h-5 w-5 text-gray-500"} />
             </div>
             <input
+              // disabled
+              onClick={() => router.push("/search")}
               className={
                 "bg-gray-50 block w-full pl-10 sm:text-sm border-gray-300 focus:border-black focus:ring-black rounded-md"
               }
@@ -65,7 +67,18 @@ function Header() {
         {/* Right */}
         <div className={"flex items-center justify-end space-x-4"}>
           <HomeIcon className={"navBtn"} onClick={() => router.push("/")} />
-          <MenuIcon className={"h-12 md:hidden cursor-pointer"} />
+          <div className={"relative block sm:hidden"}>
+            <PaperAirplaneIcon
+              className={"h-8 md:hidden cursor-pointer rotate-45"}
+            />
+            <div
+              className={
+                "absolute -top-1 -right-2 text-xs text-white w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse"
+              }
+            >
+              3
+            </div>
+          </div>
           {session ? (
             <>
               <div className={"relative navBtn"}>
@@ -78,16 +91,18 @@ function Header() {
                   3
                 </div>
               </div>
-              <PlusCircleIcon className={"navBtn"} onClick={() => setOpen(true)} />
+              <PlusCircleIcon
+                className={"navBtn"}
+                onClick={() => setOpen(true)}
+              />
               <UserGroupIcon className={"navBtn"} />
               <HeartIcon className={"navBtn"} />
 
-              <img
-                // onClick={signOut}
+              {/* <img
                 src={session.user.image}
                 alt="profile_pic"
                 className={"h-10 w-10 rounded-full cursor-pointer object-cover"}
-              />
+              /> */}
             </>
           ) : (
             <button onClick={signIn}>Sign In</button>

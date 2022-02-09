@@ -70,7 +70,7 @@ function Modal() {
       >
         <div
           className={
-            "flex items-end justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+            "flex items-end justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-48 text-center sm:block sm:p-0"
           }
         >
           <Transition.Child
