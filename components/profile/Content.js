@@ -11,7 +11,7 @@ function Content() {
           className={"max-w-lg rounded-full object-contain"}
         />
         <div>
-          <h1 className={"text-2xl font-normal"}>{session.user.name}</h1>
+          <h1 className={"text-2xl font-normal"}>{session?.user?.name}</h1>
           <div>
             <div>
               <p>200</p>
