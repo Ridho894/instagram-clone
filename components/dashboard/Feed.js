@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Footer from "./Footer";
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
 import Stories from "./Stories";
@@ -13,15 +14,20 @@ function Feed() {
         !session && "!grid-cols-1 !max-w-max"
       }`}
     >
-      <section className={`col-span-2 ${!session && 'w-screen sm:max-w-3xl lg:max-w-3xl'}`}>
+      <section
+        className={`col-span-2 ${
+          !session && "w-screen sm:max-w-3xl lg:max-w-3xl"
+        }`}
+      >
         <Stories />
         <Posts />
       </section>
       {session && (
         <section className={"hidden xl:inline-grid md:col-span-1"}>
-          <div className={"fixed top-20"}>
+          <div className={"fixed top-20 max-w-sm"}>
             <MiniProfile />
             <Suggestions />
+            <Footer />
           </div>
         </section>
       )}

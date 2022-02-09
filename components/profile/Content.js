@@ -1,5 +1,6 @@
 import React from "react";
 import { useSession } from "next-auth/react";
+import SlidePicture from "./SlidePicture";
 
 function Content() {
   const { data: session } = useSession();
@@ -13,13 +14,14 @@ function Content() {
         <div>
           <h1 className={"text-2xl font-normal"}>{session?.user?.name}</h1>
           <div>
-            <div>
-              <p>200</p>
-              <p>Posts</p>
+            <div className={"flex flex-row space-x-2"}>
+              <p className={"font-bold"}>200</p>
+              <p>posts</p>
             </div>
           </div>
         </div>
       </div>
+      <SlidePicture />
     </div>
   );
 }

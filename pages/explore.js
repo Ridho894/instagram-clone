@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Header from "../components/Header";
-import Modal from "../components/Modal";
+import Modal from "../components/ModalAddPost";
 
 export default function Explore() {
   return (
