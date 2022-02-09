@@ -5,8 +5,8 @@ import {
   UserGroupIcon,
   HeartIcon,
   PaperAirplaneIcon,
-  MenuIcon,
 } from "@heroicons/react/outline";
+import ExploreIcon from "@mui/icons-material/Explore";
 import { HomeIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -35,17 +35,17 @@ function Header() {
 
         <div
           onClick={() => router.push("/")}
-          className={"relative w-10 lg:hidden flex-shrink-0 cursor-pointer"}
+          className={"relative w-32 lg:hidden flex-shrink-0 cursor-pointer"}
         >
           <Image
-            src="https://links.papareact.com/jjm"
+            src="https://links.papareact.com/ocw"
             layout="fill"
             objectFit="contain"
           />
         </div>
         {/* Middle - Search Input Field */}
         <div className={"max-w-xs"}>
-          <div className={"relative mt-1 p-3 rounded-md"}>
+          <div className={"relative mt-1 p-3 rounded-md invisible sm:visible"}>
             <div
               className={
                 "absolute inset-y-0 pl-3 flex items-center pointer-events-none"
@@ -54,8 +54,6 @@ function Header() {
               <SearchIcon className={"h-5 w-5 text-gray-500"} />
             </div>
             <input
-              // disabled
-              onClick={() => router.push("/search")}
               className={
                 "bg-gray-50 block w-full pl-10 sm:text-sm border-gray-300 focus:border-black focus:ring-black rounded-md"
               }
@@ -94,6 +92,10 @@ function Header() {
               <PlusCircleIcon
                 className={"navBtn"}
                 onClick={() => setOpen(true)}
+              />
+              <ExploreIcon
+                onClick={() => router.push("/explore")}
+                className={"navBtn"}
               />
               <UserGroupIcon className={"navBtn"} />
               <HeartIcon className={"navBtn"} />

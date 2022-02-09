@@ -18,9 +18,8 @@ import {
   orderBy,
   query,
   serverTimestamp,
-  setDoc,
 } from "@firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import Moment from "react-moment";
 
 function Post({ id, username, userImg, img, caption }) {
@@ -60,7 +59,6 @@ function Post({ id, username, userImg, img, caption }) {
   );
 
   const likePost = async () => {
-    
     if (hasLiked) {
       // delete likes where in firestore
       await deleteDoc(collection(db, "posts", id, "likes"), session.user.uid);
@@ -124,7 +122,9 @@ function Post({ id, username, userImg, img, caption }) {
       )}
       {/* Caption */}
       <p className={"p-5 truncate"}>
-        {likes.length > 0 && <p className={"font-bold mb-1"}>{likes.length} likes</p>}
+        {likes.length > 0 && (
+          <p className={"font-bold mb-1"}>{likes.length} likes</p>
+        )}
         <span className={"font-bold mr-1"}>{username} </span>
         {caption}
       </p>

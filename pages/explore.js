@@ -1,8 +1,9 @@
 import Head from "next/head";
 import React from "react";
 import Header from "../components/Header";
+import Modal from "../components/Modal";
 
-export default function Search() {
+export default function Explore() {
   return (
     <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
@@ -16,6 +17,7 @@ export default function Search() {
         />
       </Head>
       <Header />
+      <Modal />
     </div>
   );
 }

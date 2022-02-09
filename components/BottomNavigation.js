@@ -11,8 +11,10 @@ import {
 import { HomeIcon } from "@heroicons/react/solid";
 import { modalState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
 
 export default function BottomNavigationResponsive() {
+  const router = useRouter();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = useRecoilState(modalState);
   return (
@@ -25,11 +27,13 @@ export default function BottomNavigationResponsive() {
         }}
       >
         <BottomNavigationAction
+          onClick={() => router.push("/")}
           icon={
             <HomeIcon className={`h-7 w-7 ${value === 0 && "text-black"}`} />
           }
         />
         <BottomNavigationAction
+          onClick={() => router.push("/explore")}
           icon={
             <SearchIcon className={`h-7 w-7 ${value === 1 && "text-black"}`} />
           }
@@ -43,11 +47,13 @@ export default function BottomNavigationResponsive() {
           }
         />
         <BottomNavigationAction
+          onClick={() => router.push("/likes")}
           icon={
             <HeartIcon className={`h-7 w-7 ${value === 3 && "text-black"}`} />
           }
         />
         <BottomNavigationAction
+          onClick={() => router.push("/profile")}
           icon={
             <UserIcon className={`h-7 w-7 ${value === 4 && "text-black"}`} />
           }
