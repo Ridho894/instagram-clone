@@ -58,9 +58,9 @@ export default function CustomizedTabs() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box className={"w-full mx-auto"}>
       <Box sx={{ bgcolor: "transparent" }}>
-        <AntTabs value={value} onChange={handleChange} aria-label="ant example">
+        <AntTabs value={value} variant="fullWidth" onChange={handleChange}>
           <AntTab iconPosition="start" icon={<GridOnIcon />} label="POSTS" />
           <AntTab
             iconPosition="start"

@@ -14,7 +14,7 @@ import {
 import { useSession } from "next-auth/react";
 import { ref, getDownloadURL, uploadString } from "@firebase/storage";
 
-function Modal() {
+function ModalAddPost() {
   const { data: session } = useSession();
   const [open, setOpen] = useRecoilState(modalState);
   const filePickerRef = useRef(null);
@@ -179,4 +179,4 @@ function Modal() {
   );
 }
 
-export default Modal;
+export default ModalAddPost;

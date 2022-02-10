@@ -13,7 +13,6 @@ import {
   addDoc,
   collection,
   deleteDoc,
-  doc,
   onSnapshot,
   orderBy,
   query,
@@ -22,7 +21,7 @@ import {
 import { db } from "../../firebase";
 import Moment from "react-moment";
 
-function Post({ id, username, userImg, img, caption }) {
+function Post({ id, username, userImg, img, caption, openModal }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -114,7 +113,7 @@ function Post({ id, username, userImg, img, caption }) {
             ) : (
               <HeartIcon onClick={likePost} className={"btn"} />
             )}
-            <ChatIcon className={"btn"} />
+            <ChatIcon className={"btn"} onClick={openModal} />
             <PaperAirplaneIcon className={"btn"} />
           </div>
           <BookmarkIcon className={"btn"} />
