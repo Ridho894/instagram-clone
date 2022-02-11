@@ -15,7 +15,6 @@ function Stories() {
     }));
     setSuggestions(suggestions);
   }, []);
-  console.log(suggestions)
   return (
     <div
       className={

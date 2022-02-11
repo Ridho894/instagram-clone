@@ -37,7 +37,6 @@ function ModalAddPost() {
       profileImg: session.user.image,
       timestamp: serverTimestamp(),
     });
-    console.log("New", docRef.id);
     const imageRef = ref(storage, `posts/${docRef.id}/image`);
     await uploadString(imageRef, selectedFile, "data_url").then(
       async (snapshot) => {

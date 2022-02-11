@@ -13,15 +13,25 @@ import {
   addDoc,
   collection,
   deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
 } from "@firebase/firestore";
 import { db } from "../../firebase";
 import Moment from "react-moment";
 
-function Post({ id, username, userImg, img, caption, openModal }) {
+function Post({
+  idPosts,
+  idLikes,
+  username,
+  userImg,
+  img,
+  caption,
+  openModal,
+}) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -33,54 +43,53 @@ function Post({ id, username, userImg, img, caption, openModal }) {
     () =>
       onSnapshot(
         query(
-          collection(db, "posts", id, "comments"),
+          collection(db, "posts", idPosts, "comments"),
           orderBy("timestamp", "desc")
         ),
         (snapshot) => setComments(snapshot.docs)
       ),
-    [db, id]
+    [db, idPosts]
   );
 
   useEffect(
     () =>
-      onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+      onSnapshot(collection(db, "posts", idPosts, "likes"), (snapshot) =>
         setLikes(snapshot.docs)
       ),
-    [db, id]
+    [db, idPosts]
   );
 
-  useEffect(
-    () =>
-      setHasLiked(
-        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
-      ),
-    [likes]
-  );
+  useEffect(() => {
+    setHasLiked(
+      likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+    );
+  }, [likes]);
 
+  const likeId = likes.map((like) => like.id);
+  const hatePost = async () => {
+    setLiked(false);
+    const docRef = doc(db, `posts/${idPosts}/likes/${likeId[0]}`);
+    await deleteDoc(docRef);
+  };
   const likePost = async () => {
-    if (hasLiked) {
-      // delete likes where in firestore
-      await deleteDoc(collection(db, "posts", id, "likes"), session.user.uid);
-    } else {
-      // store like in firestore
-      setLiked(true);
-      await addDoc(
-        collection(db, "posts", id, "likes"),
-        {
-          username: session.user.username,
-          liked: true,
-          timestamp: serverTimestamp(),
-        },
-        session.user.uid
-      );
-    }
+    // store like in firestore
+    setLiked(true);
+    await addDoc(
+      collection(db, "posts", idPosts, "likes"),
+      {
+        username: session.user.username,
+        liked: true,
+        timestamp: serverTimestamp(),
+      },
+      session.user.uid
+    );
   };
   const sendComment = async (e) => {
     e.preventDefault();
     const commentToSend = comment;
     setComment("");
 
-    await addDoc(collection(db, "posts", id, "comments"), {
+    await addDoc(collection(db, "posts", idPosts, "comments"), {
       comment: commentToSend,
       username: session.user.username,
       userImage: session.user.image,
@@ -107,7 +116,7 @@ function Post({ id, username, userImg, img, caption, openModal }) {
           <div className={"flex space-x-4"}>
             {liked ? (
               <HeartIconFilled
-                onClick={() => setLiked(false)}
+                onClick={hatePost}
                 className={"btn text-red-500"}
               />
             ) : (

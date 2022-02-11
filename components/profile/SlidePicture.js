@@ -8,7 +8,7 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Typography } from "@mui/material";
 import { db } from "../../firebase";
-import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
+import { onSnapshot, collection, query, orderBy, doc, deleteDoc } from "@firebase/firestore";
 import { useSession } from "next-auth/react";
 import { CameraIcon } from "@heroicons/react/outline";
 import ModalDetailPost from "../../components/ModalDetailPost";
@@ -88,6 +88,12 @@ export default function SlidePicture() {
     setValue(newValue);
   };
 
+  // function delete posts
+  const deletePost = async (id) => {
+    const docRef = doc(db, `posts/${id}`);
+    await deleteDoc(docRef);
+  }
+
   // get posts from firebase by username
   useEffect(
     () =>
@@ -138,8 +144,9 @@ export default function SlidePicture() {
                       "flex flex-wrap flex-row px-2 justify-between w-full"
                     }
                     onClick={() => {
+                      // delete
+                      // deletePost(post.id);
                       setOpen(true);
-                      // passing data to modal
                       setModalData(post.data());
                     }}
                   >
