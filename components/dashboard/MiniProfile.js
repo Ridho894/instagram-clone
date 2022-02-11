@@ -1,14 +1,15 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import ModalLogout from "../ModalLogout";
 
 function MiniProfile() {
   const { data: session } = useSession();
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   return (
     <div
-      className={
-        "flex items-center justify-between mt-14 ml-10 cursor-pointer"
-      }
+      className={"flex items-center justify-between mt-14 ml-10 cursor-pointer"}
     >
       <img
         className={"w-16 h-16 object-cover rounded-full border p-[2px]"}
@@ -23,11 +24,16 @@ function MiniProfile() {
         <h3 className={"text-sm text-gray-400"}>Welcome to Instagram</h3>
       </div>
       <button
-        onClick={signOut}
+        onClick={() => setOpen(true)}
         className={"text-blue-400 bg-white text-sm font-semibold"}
       >
         Sign Out
       </button>
+      <ModalLogout
+        handleLogout={signOut}
+        open={open}
+        close={() => setOpen(false)}
+      />
     </div>
   );
 }

@@ -24,7 +24,15 @@ export default function Footer() {
           <p key={item.id}>{item.name}</p>
         ))}
       </section>
-      <p className={"mt-4 text-gray-300 text-sm"}>© 2022 Simple Instagram from kakido</p>
+      <p className={"mt-4 text-gray-300 text-sm"}>
+        © 2022 Simple Instagram from{" "}
+        <span
+          className={"cursor-pointer hover:underline"}
+          onClick={() => window.open("https://rd-portofolio.vercel.app")}
+        >
+          kakido
+        </span>
+      </p>
     </main>
   );
 }

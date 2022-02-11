@@ -2,8 +2,6 @@ import Head from "next/head";
 import Feed from "../components/dashboard/Feed";
 import Header from "../components/Header";
 import ModalAddPost from "../components/ModalAddPost";
-import ModalDetailPost from "../components/ModalDetailPost";
-import ModalNotifications from "../components/ModalNotifications";
 
 export default function Home() {
   return (
@@ -21,8 +19,6 @@ export default function Home() {
       <Header />
       <Feed />
       <ModalAddPost />
-      {/* <ModalDetailPost /> */}
-      {/* <ModalNotifications /> */}
     </div>
   );
 }
