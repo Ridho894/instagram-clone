@@ -2,11 +2,13 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import React from "react";
 import Header from "../components/Header";
-import Modal from "../components/ModalAddPost";
 import Content from "../components/profile/Content";
+import ModalAddPost from "../components/ModalAddPost";
+import { useRouter } from "next/router";
 
 export default function Profile() {
   const { data: session } = useSession();
+  const router = useRouter();
   // if !session redirect to login
   if (!session) {
     return <p>You need to login to see this page</p>;
@@ -25,7 +27,7 @@ export default function Profile() {
       </Head>
       <Header />
       <Content />
-      <Modal />
+      <ModalAddPost />
     </div>
   );
 }

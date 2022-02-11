@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,6 +11,7 @@ import { db } from "../../firebase";
 import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
 import { useSession } from "next-auth/react";
 import { CameraIcon } from "@heroicons/react/outline";
+import ModalDetailPost from "../../components/ModalDetailPost";
 
 const AntTabs = styled(Tabs)({
   borderBottom: "1px solid #e8e8e8",
@@ -75,10 +76,13 @@ const AntTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 
-export default function CustomizedTabs() {
+export default function SlidePicture() {
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(0);
   const [posts, setPosts] = useState([]);
   const { data: session } = useSession();
+  const [open, setOpen] = useState(false);
+  const [modalData, setModalData] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -91,10 +95,12 @@ export default function CustomizedTabs() {
         query(collection(db, "posts"), orderBy("timestamp", "desc")),
         (snapshot) => {
           // filter by username
+          setLoading(true);
           const filteredPosts = snapshot.docs.filter(
             (doc) => doc.data().username === session.user.username
           );
           setPosts(filteredPosts);
+          setLoading(false);
         }
       ),
     [db]
@@ -126,12 +132,28 @@ export default function CustomizedTabs() {
           <Box className={"flex flex-row"}>
             {posts.length > 0 ? (
               posts.map((post) => (
-                <div className={"flex flex-wrap flex-row px-2 justify-between w-full"}>
-                  <img
-                    src={post.data().image}
-                    className={"w-full h-full object-cover"}
+                <Fragment>
+                  <div
+                    className={
+                      "flex flex-wrap flex-row px-2 justify-between w-full"
+                    }
+                    onClick={() => {
+                      setOpen(true);
+                      // passing data to modal
+                      setModalData(post.data());
+                    }}
+                  >
+                    <img
+                      src={post.data().image}
+                      className={"w-full h-full object-cover"}
+                    />
+                  </div>
+                  <ModalDetailPost
+                    open={open}
+                    close={() => setOpen(false)}
+                    data={modalData}
                   />
-                </div>
+                </Fragment>
               ))
             ) : (
               <div
