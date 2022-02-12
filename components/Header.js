@@ -67,6 +67,7 @@ function Header() {
         <div className={"flex items-center justify-end space-x-4"}>
           {session ? (
             <>
+              <HomeIcon className={"navBtn"} onClick={() => router.push("/")} />
               <div className={"relative navBtn"}>
                 <PaperAirplaneIcon className={"navBtn rotate-45"} />
                 <div

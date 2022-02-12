@@ -18,7 +18,7 @@ import {
 } from "@firebase/firestore";
 import { useSession } from "next-auth/react";
 import { CameraIcon } from "@heroicons/react/outline";
-import ModalDetailPost from "../../components/ModalDetailPost";
+import ModalActionPost from "../ModalActionPost";
 
 const AntTabs = styled(Tabs)({
   borderBottom: "1px solid #e8e8e8",
@@ -157,20 +157,21 @@ export default function SlidePicture() {
                       src={post.data().image}
                       className={"w-full h-full object-cover"}
                     />
-                    <ModalDetailPost
+                    <ModalActionPost
                       open={open}
                       close={() => setOpen(false)}
                       data={modalData}
+                      handleDelete={() => deletePost(post.id)}
                     />
                   </Fragment>
                 ))
               ) : (
                 <div
                   className={
-                    "flex items-center mx-auto justify-center flex-col border-2 p-4 h-40 w-40 border-black rounded-full"
+                    "flex items-center mx-auto justify-center place-self-center flex-col border-2 p-4 h-40 w-40 border-black rounded-full"
                   }
                 >
-                  <CameraIcon className={"h-10 w-10"} />
+                  <CameraIcon className={"h-10 self-center w-10"} />
                   <p>No posts yet</p>
                 </div>
               )}
