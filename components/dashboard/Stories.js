@@ -27,7 +27,7 @@ function Stories() {
       {suggestions.map((profile) => (
         <Story
           key={profile.id}
-          img={profile.avatar}
+          img={"https://cdn-icons-png.flaticon.com/512/149/149071.png"}
           username={profile.username}
         />
       ))}

@@ -8,7 +8,14 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Typography } from "@mui/material";
 import { db } from "../../firebase";
-import { onSnapshot, collection, query, orderBy, doc, deleteDoc } from "@firebase/firestore";
+import {
+  onSnapshot,
+  collection,
+  query,
+  orderBy,
+  doc,
+  deleteDoc,
+} from "@firebase/firestore";
 import { useSession } from "next-auth/react";
 import { CameraIcon } from "@heroicons/react/outline";
 import ModalDetailPost from "../../components/ModalDetailPost";
@@ -92,7 +99,7 @@ export default function SlidePicture() {
   const deletePost = async (id) => {
     const docRef = doc(db, `posts/${id}`);
     await deleteDoc(docRef);
-  }
+  };
 
   // get posts from firebase by username
   useEffect(
@@ -136,42 +143,38 @@ export default function SlidePicture() {
         </AntTabs>
         <TabPanel value={value} index={0}>
           <Box className={"flex flex-row"}>
-            {posts.length > 0 ? (
-              posts.map((post) => (
-                <Fragment>
-                  <div
-                    className={
-                      "flex flex-wrap flex-row px-2 justify-between w-full"
-                    }
-                    onClick={() => {
-                      // delete
-                      // deletePost(post.id);
-                      setOpen(true);
-                      setModalData(post.data());
-                    }}
-                  >
+            <div className={"grid grid-cols-3 gap-x-10"}>
+              {posts.length > 0 ? (
+                posts.map((post) => (
+                  <Fragment>
                     <img
+                      onClick={() => {
+                        // delete
+                        // deletePost(post.id);
+                        setOpen(true);
+                        setModalData(post.data());
+                      }}
                       src={post.data().image}
                       className={"w-full h-full object-cover"}
                     />
-                  </div>
-                  <ModalDetailPost
-                    open={open}
-                    close={() => setOpen(false)}
-                    data={modalData}
-                  />
-                </Fragment>
-              ))
-            ) : (
-              <div
-                className={
-                  "flex items-center mx-auto justify-center flex-col border-2 p-4 h-40 w-40 border-black rounded-full"
-                }
-              >
-                <CameraIcon className={"h-10 w-10"} />
-                <p>No posts yet</p>
-              </div>
-            )}
+                    <ModalDetailPost
+                      open={open}
+                      close={() => setOpen(false)}
+                      data={modalData}
+                    />
+                  </Fragment>
+                ))
+              ) : (
+                <div
+                  className={
+                    "flex items-center mx-auto justify-center flex-col border-2 p-4 h-40 w-40 border-black rounded-full"
+                  }
+                >
+                  <CameraIcon className={"h-10 w-10"} />
+                  <p>No posts yet</p>
+                </div>
+              )}
+            </div>
           </Box>
         </TabPanel>
         <TabPanel value={value} index={1}>

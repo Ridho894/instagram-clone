@@ -5,6 +5,7 @@ import {
   UserGroupIcon,
   HeartIcon,
   PaperAirplaneIcon,
+  LoginIcon,
 } from "@heroicons/react/outline";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { HomeIcon } from "@heroicons/react/solid";
@@ -35,7 +36,7 @@ function Header() {
 
         <div
           onClick={() => router.push("/")}
-          className={"relative w-32 lg:hidden flex-shrink-0 cursor-pointer"}
+          className={"relative w-28 lg:hidden flex-shrink-0 cursor-pointer"}
         >
           <Image
             src="https://links.papareact.com/ocw"
@@ -64,19 +65,6 @@ function Header() {
         </div>
         {/* Right */}
         <div className={"flex items-center justify-end space-x-4"}>
-          <HomeIcon className={"navBtn"} onClick={() => router.push("/")} />
-          <div className={"relative block sm:hidden"}>
-            <PaperAirplaneIcon
-              className={"h-8 md:hidden cursor-pointer rotate-45"}
-            />
-            <div
-              className={
-                "absolute -top-1 -right-2 text-xs text-white w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse"
-              }
-            >
-              3
-            </div>
-          </div>
           {session ? (
             <>
               <div className={"relative navBtn"}>
@@ -107,7 +95,12 @@ function Header() {
               /> */}
             </>
           ) : (
-            <button onClick={signIn}>Sign In</button>
+            <>
+              <HomeIcon className={"h-6 w-6 hover:scale-125 transition-all duration-150 ease-out cursor-pointer hidden sm:block"} onClick={() => router.push("/")} />
+              <button onClick={signIn}>
+                <LoginIcon className={"h-6 w-6 hover:scale-125 transition-all duration-150 ease-out"} />
+              </button>
+            </>
           )}
         </div>
       </div>

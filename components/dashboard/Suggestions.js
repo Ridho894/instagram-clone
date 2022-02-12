@@ -24,8 +24,8 @@ function Suggestions() {
           className={"flex items-center justify-between mt-3"}
         >
           <img
-            src={profile.avatar}
-            className={"w-10 h-10 rounded-full border p-[2px]"}
+            src={"https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+            className={"w-10 h-10 rounded-full border border-black p-[2px]"}
             alt=""
           />
           <div className={"flex-1 ml-4"}>

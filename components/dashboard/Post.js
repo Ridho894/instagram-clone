@@ -18,14 +18,12 @@ import {
   orderBy,
   query,
   serverTimestamp,
-  updateDoc,
 } from "@firebase/firestore";
 import { db } from "../../firebase";
 import Moment from "react-moment";
 
 function Post({
   idPosts,
-  idLikes,
   username,
   userImg,
   img,
