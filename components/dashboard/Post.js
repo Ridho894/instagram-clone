@@ -66,11 +66,17 @@ function Post({
   }, [likes]);
 
   const likeId = likes.map((like) => like.id);
-  const hatePost = async () => {
+  
+  const likedId = likes.map((like) => like.data().liked);
+  // const likedId = likes.map((like) => like.id);
+  // console.log(likedId, "id")
+
+  const unLikePost = async () => {
     setLiked(false);
     const docRef = doc(db, `posts/${idPosts}/likes/${likeId[0]}`);
     await deleteDoc(docRef);
   };
+
   const likePost = async () => {
     // store like in firestore
     setLiked(true);
@@ -114,9 +120,9 @@ function Post({
       {session && (
         <div className={"flex justify-between px-4 pt-4"}>
           <div className={"flex space-x-4"}>
-            {liked ? (
+            {likedId[0] ? (
               <HeartIconFilled
-                onClick={hatePost}
+                onClick={unLikePost}
                 className={"btn text-red-500"}
               />
             ) : (
