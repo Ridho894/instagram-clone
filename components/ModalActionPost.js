@@ -1,7 +1,14 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-function ModalActionPost({ open, close, data, handleDelete, handleEdit }) {
+function ModalActionPost({
+  open,
+  close,
+  data,
+  handleDelete,
+  handleEdit,
+  children,
+}) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -51,7 +58,7 @@ function ModalActionPost({ open, close, data, handleDelete, handleEdit }) {
               }
             >
               <img src={data.image} alt=".img" />
-              <h1>{data.caption}</h1>
+              <Fragment>{children}</Fragment>
               <div className={"flex justify-evenly"}>
                 <button
                   onClick={handleEdit}

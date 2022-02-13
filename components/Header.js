@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/outline";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { HomeIcon } from "@heroicons/react/solid";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";

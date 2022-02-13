@@ -15,6 +15,7 @@ import {
   orderBy,
   doc,
   deleteDoc,
+  updateDoc,
 } from "@firebase/firestore";
 import { useSession } from "next-auth/react";
 import { CameraIcon } from "@heroicons/react/outline";
@@ -90,6 +91,10 @@ export default function SlidePicture() {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   const [modalData, setModalData] = useState([]);
+  const [disable, setDisable] = useState(true);
+  const [captionPost, setCaptionPost] = useState("");
+
+  console.log(captionPost, "ini caption");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -99,6 +104,13 @@ export default function SlidePicture() {
   const deletePost = async (id) => {
     const docRef = doc(db, `posts/${id}`);
     await deleteDoc(docRef);
+  };
+
+  // function update posts
+  const updatePost = async (id, data) => {
+    const docRef = doc(db, `posts/${id}`);
+    await updateDoc(docRef, data);
+    setOpen(false)
   };
 
   // get posts from firebase by username
@@ -112,6 +124,7 @@ export default function SlidePicture() {
           const filteredPosts = snapshot.docs.filter(
             (doc) => doc.data().username === session.user.username
           );
+          setCaptionPost(filteredPosts[0].data().caption);
           setPosts(filteredPosts);
           setLoading(false);
         }
@@ -159,9 +172,42 @@ export default function SlidePicture() {
                     />
                     <ModalActionPost
                       open={open}
-                      close={() => setOpen(false)}
+                      close={() => {
+                        setCaptionPost(post.data().caption);
+                        setDisable(true)
+                        setOpen(false);
+                      }}
                       data={modalData}
                       handleDelete={() => deletePost(post.id)}
+                      handleEdit={() => {
+                        setDisable(false);
+                      }}
+                      children={
+                        <input
+                          value={captionPost}
+                          autoFocus
+                          className={"my-4 p-2 outline-black rounded-md"}
+                          disabled={disable}
+                          // edit
+                          onChange={(e) => {
+                            setCaptionPost(e.target.value);
+                          }}
+                          // submit edit
+                          onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                              updatePost(post.id, {
+                                caption: captionPost,
+                              });
+                              // setCaptionPost(post.data().caption);
+                              // setDisable(true);
+                            }
+                          }}
+                          // onSubmit={(e) => {
+                          //   updatePost(post.id, { caption: e.target.value });
+                          //   // setDisable(true);
+                          // }}
+                        />
+                      }
                     />
                   </Fragment>
                 ))
