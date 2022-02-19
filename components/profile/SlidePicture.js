@@ -186,7 +186,7 @@ export default function SlidePicture() {
                         <input
                           value={captionPost}
                           autoFocus
-                          className={"my-4 p-2 outline-black rounded-md"}
+                          className={"my-4 p-2 disabled:bg-gray-100 rounded-md"}
                           disabled={disable}
                           // edit
                           onChange={(e) => {

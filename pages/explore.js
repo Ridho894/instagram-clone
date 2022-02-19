@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import PhotoGrid from "../components/explore/PhotoGrid";
 import Header from "../components/Header";
-import Modal from "../components/ModalAddPost";
+import ModalAddPost from "../components/ModalAddPost";
 
 export default function Explore() {
   return (
@@ -19,7 +19,7 @@ export default function Explore() {
       </Head>
       <Header />
       <PhotoGrid />
-      <Modal />
+      <ModalAddPost />
     </div>
   );
 }
